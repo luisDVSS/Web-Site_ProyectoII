@@ -13,11 +13,16 @@ function generateToken(lenght) {
 function ForgottenPassword() {
   const [email, setEmail] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const token = generateToken(20);
     console.log("Token generado:", token);
     alert(`Se ha enviado un correo a ${email} con el token: ${token}`);
+    await fetch("http://localhost:3001/send-email", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, token }),
+    });
   };
 
   return (
