@@ -1,7 +1,16 @@
-REPOSITORIO DEL PROYECTO "APLICACION WEB DE DESAROLLO DE GIROS"
+# Repositorio del Proyecto  
+## Aplicación Web de Desarrollo de sistemas administrativos  
 
-Sin nombre aun
+### TWorkPlates
 
--Diaz Modaca Jose Luis
--Cervantes Lopez Raul
--Muro Lopez Sean Josue
+---
+
+> [!NOTE]
+> ### Creadores
+> - **Diaz Modaca, Jose Luis**
+> - **Cervantes Lopez, Raul**
+> - **Muro Lopez, Sean Josue**
+
+---
+Proyecto académico enfocado en el desarrollo de una aplicación web para la gestión y desarrollo de giros.
+vibeCoding Full :D
