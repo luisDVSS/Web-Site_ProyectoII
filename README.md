@@ -1,5 +1,5 @@
 # Repositorio del Proyecto  
-## Aplicación Web de Desarrollo de Giros  
+## Aplicación Web de Desarrollo de sistemas administrativos  
 
 ### TWorkPlates
 
