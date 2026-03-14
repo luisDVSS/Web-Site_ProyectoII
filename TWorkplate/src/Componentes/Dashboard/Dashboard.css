@@ -1,0 +1,103 @@
+/* ═══════════════════════════════════════════════════
+   APP ROOT & ROLE SWITCHER
+   ═══════════════════════════════════════════════════ */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #030712;
+  color: #f8fafc;
+  font-family: 'Outfit', sans-serif;
+}
+
+.app-root {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ── Role switcher ── */
+.role-switcher {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: #020817;
+  border-bottom: 1px solid #0f172a;
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.role-switcher__label {
+  font-size: 10px;
+  color: #334155;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.role-btn {
+  background: #0f172a;
+  border: 1px solid #1e293b;
+  color: #64748b;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 11px;
+  cursor: pointer;
+  font-family: 'Outfit', sans-serif;
+  transition: all 0.12s;
+}
+.role-btn:hover { color: #94a3b8; }
+.role-btn--user.active { background: #1e3a5f; color: #7dd3fc; border-color: #1d4ed8; }
+.role-btn--admin.active { background: #1a1a2e; color: #a78bfa; border-color: #6d28d9; }
+
+.role-btn--new {
+  background: #4ade80;
+  border: none;
+  color: #030712;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Outfit', sans-serif;
+  transition: opacity 0.12s;
+}
+.role-btn--new:hover { opacity: 0.85; }
+
+/* ── Admin panel (list view) - shared with DevBuilder ── */
+.admin-panel { padding: 24px; overflow-y: auto; flex: 1; }
+.admin-panel__header { margin-bottom: 20px; }
+.admin-panel__eyebrow { font-size: 10px; color: #475569; text-transform: uppercase; letter-spacing: 1px; }
+.admin-panel__title { font-size: 22px; font-weight: 700; color: #f8fafc; margin: 4px 0; }
+.admin-panel__subtitle { font-size: 12px; color: #64748b; }
+
+.admin-panel__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.admin-func-card {
+  background: #0f172a;
+  border: 1px solid #1e293b;
+  border-radius: 10px;
+  padding: 14px;
+  border-top: 3px solid var(--accent, #60a5fa);
+}
+.admin-func-card__header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.admin-func-card__icon { font-size: 22px; }
+.admin-func-card__name { font-size: 13px; font-weight: 700; color: #f8fafc; }
+.admin-func-card__category { font-size: 9px; color: #475569; text-transform: uppercase; }
+.admin-func-card__desc { font-size: 10px; color: #64748b; margin-bottom: 8px; }
+.admin-func-card__tags { display: flex; flex-wrap: wrap; gap: 3px; margin-bottom: 6px; }
+.admin-func-card__count { font-size: 9px; color: #475569; }
+
+.tag-pill {
+  background: color-mix(in srgb, var(--accent, #60a5fa) 15%, transparent);
+  color: var(--accent, #60a5fa);
+  border-radius: 999px;
+  padding: 2px 7px;
+  font-size: 9px;
+  font-family: 'Outfit', sans-serif;
+}
