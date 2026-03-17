@@ -1,18 +1,24 @@
-import { useState } from "react";
-import AdminBuilder, { _DB_FUNCTIONALITIES } from "../FuncMaker/FuncMaker.jsx";
+import { useState, useEffect } from "react";
+import AdminBuilder from "../FuncMaker/FuncMaker.jsx";
 import UserSide from "../componentes_confi/ElementosTest.jsx";
 import "./Dashboard.css";
-
+import { getFunctionalities } from "./data.jsx";
 // ═══════════════════════════════════════════════════════════════════════════════
 // ROOT
 // ═══════════════════════════════════════════════════════════════════════════════
 export default function App() {
   const [side, setSide] = useState("user");
   const [showAdminBuilder, setShowAdminBuilder] = useState(false);
+  const [functionalities, setFunctionalities] = useState([]);
+
+  useEffect(() => {
+    getFunctionalities()
+      .then(setFunctionalities)
+      .catch((err) => console.error("Error al cargar funcionalidades:", err));
+  }, []);
 
   return (
     <div className="app-root">
-      {/* Role switcher */}
       <div className="role-switcher">
         <span className="role-switcher__label">Vista:</span>
         <button
@@ -52,7 +58,7 @@ export default function App() {
             </p>
           </div>
           <div className="admin-panel__grid">
-            {_DB_FUNCTIONALITIES.map((f) => (
+            {functionalities.map((f) => (
               <div
                 key={f.id}
                 className="admin-func-card"
@@ -80,7 +86,7 @@ export default function App() {
                   ))}
                 </div>
                 <div className="admin-func-card__count">
-                  {JSON.parse(f.content).widgets?.length || 0} widgets definidos
+                  {f.content?.widgets?.length || 0} widgets definidos{" "}
                 </div>
               </div>
             ))}

@@ -1,10 +1,9 @@
 import { useState, useCallback, useEffect } from "react";
 import "./FuncMaker.css";
-
 // ═══════════════════════════════════════════════════════════════════════════════
 // SIMULATED API (shared - replace with real fetch() calls)
 // ═══════════════════════════════════════════════════════════════════════════════
-export let _DB_FUNCTIONALITIES = [
+export let BD_DATA_FETCH = [
   {
     id: "func_seed_002",
     label: "Empleados",
@@ -230,35 +229,38 @@ export let _DB_FUNCTIONALITIES = [
   },
 ];
 
+const API_URL = "https://tworkplate-api.onrender.com/api/funcionalidades";
+
 export const API = {
   getFunctionalities: async () => {
-    await new Promise((r) => setTimeout(r, 400));
-    return _DB_FUNCTIONALITIES.map((f) => ({
-      ...f,
-      content: JSON.parse(f.content),
-    }));
+    const res = await fetch(API_URL);
+    if (!res.ok) throw new Error(`Error ${res.status}`);
+    const data = await res.json();
+    // content llega como objeto desde la API, lo dejamos así
+    return data;
   },
   saveFunctionality: async (payload) => {
-    await new Promise((r) => setTimeout(r, 600));
-    const existing = _DB_FUNCTIONALITIES.findIndex((f) => f.id === payload.id);
-    const record = { ...payload, content: JSON.stringify(payload.content) };
-    if (existing >= 0) _DB_FUNCTIONALITIES[existing] = record;
-    else _DB_FUNCTIONALITIES.push(record);
-    return { ok: true, id: payload.id };
+    const res = await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        id_usuario: 1,
+        json_fun: payload,
+      }),
+    });
+    if (!res.ok) throw new Error(`Error ${res.status}`);
+    return res.json();
   },
   getUserModules: async () => {
-    await new Promise((r) => setTimeout(r, 300));
     return _DB_USER_MODULES.map((m) => ({ ...m }));
   },
   saveUserModule: async (payload) => {
-    await new Promise((r) => setTimeout(r, 500));
     const existing = _DB_USER_MODULES.findIndex((m) => m.id === payload.id);
     if (existing >= 0) _DB_USER_MODULES[existing] = payload;
     else _DB_USER_MODULES.push(payload);
     return { ok: true, id: payload.id };
   },
   deleteUserModule: async (id) => {
-    await new Promise((r) => setTimeout(r, 300));
     _DB_USER_MODULES = _DB_USER_MODULES.filter((m) => m.id !== id);
     return { ok: true };
   },
@@ -1793,13 +1795,19 @@ export default function AdminBuilder({ onClose }) {
 
   const handleSave = async () => {
     setSaving(true);
-    await API.saveFunctionality({ ...meta, content: { widgets } });
-    setSaving(false);
-    setSavedOk(true);
-    setTimeout(() => {
-      setSavedOk(false);
-      onClose();
-    }, 1200);
+    try {
+      await API.saveFunctionality({ ...meta, content: { widgets } });
+      setSavedOk(true);
+      setTimeout(() => {
+        setSavedOk(false);
+        onClose();
+      }, 1200);
+    } catch (err) {
+      console.error("Error al guardar funcionalidad:", err);
+      alert("Error al guardar. Intenta de nuevo.");
+    } finally {
+      setSaving(false);
+    }
   };
 
   const selW = widgets.find((w) => w.id === selected) || null;
