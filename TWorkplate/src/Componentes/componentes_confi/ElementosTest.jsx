@@ -2797,7 +2797,7 @@ function UserModuleCard({ module, onEdit, onDelete }) {
 // ═══════════════════════════════════════════════════════════════════════════════
 // USER SIDE
 // ═══════════════════════════════════════════════════════════════════════════════
-function UserSide() {
+export default function UserSide() {
   const [functionalities, setFunctionalities] = useState([]);
   const [userModules, setUserModules] = useState([]);
   const [loading, setLoading] = useState(true);
