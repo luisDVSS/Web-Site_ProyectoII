@@ -1,7 +1,11 @@
 import { useState } from "react";
 import "./Login.css";
 
-export default function Login({ onNavigateToRegister }) {
+export default function Login({
+  onNavigateToRegister,
+  onNavigateToForgot,
+  onLoginSuccess,
+}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -19,6 +23,8 @@ export default function Login({ onNavigateToRegister }) {
     // Simula llamada al backend
     await new Promise((r) => setTimeout(r, 1200));
     setLoading(false);
+    // Para demo: cualquier credencial válida navega al dashboard
+    if (onLoginSuccess) onLoginSuccess();
     // setError("Credenciales incorrectas."); // ejemplo de error
   };
 
@@ -96,7 +102,11 @@ export default function Login({ onNavigateToRegister }) {
                 <label className="auth-field__label" htmlFor="login-password">
                   Contraseña
                 </label>
-                <button type="button" className="auth-field__forgot">
+                <button
+                  type="button"
+                  className="auth-field__forgot"
+                  onClick={onNavigateToForgot}
+                >
                   ¿Olvidaste tu contraseña?
                 </button>
               </div>

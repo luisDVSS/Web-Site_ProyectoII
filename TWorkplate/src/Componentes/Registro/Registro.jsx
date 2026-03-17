@@ -3,7 +3,7 @@ import "./Registro.css";
 
 const STEPS = ["Cuenta", "Negocio", "Listo"];
 
-export default function Register({ onNavigateToLogin }) {
+export default function Register({ onNavigateToLogin, onRegisterSuccess }) {
   const [step, setStep] = useState(0);
   const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
@@ -379,6 +379,7 @@ export default function Register({ onNavigateToLogin }) {
                 type="button"
                 className="auth-submit"
                 style={{ marginTop: 8 }}
+                onClick={onRegisterSuccess}
               >
                 Ir a mi sistema →
               </button>
