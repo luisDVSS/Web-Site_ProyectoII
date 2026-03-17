@@ -35,7 +35,7 @@ export default function Login({
         <div className="auth-brand__inner">
           <div className="auth-brand__logo">
             <span className="auth-brand__logo-icon">⚙</span>
-            <span className="auth-brand__logo-name">SysBuilder</span>
+            <span className="auth-brand__logo-name">TWorkplate</span>
           </div>
           <div className="auth-brand__tagline">
             Construye el sistema
