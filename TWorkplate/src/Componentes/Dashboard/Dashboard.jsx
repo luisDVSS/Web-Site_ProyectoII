@@ -6,7 +6,7 @@ import { getFunctionalities } from "./data.jsx";
 // ═══════════════════════════════════════════════════════════════════════════════
 // ROOT
 // ═══════════════════════════════════════════════════════════════════════════════
-export default function App() {
+export default function Dashboard() {
   const [side, setSide] = useState("user");
   const [showAdminBuilder, setShowAdminBuilder] = useState(false);
   const [functionalities, setFunctionalities] = useState([]);
