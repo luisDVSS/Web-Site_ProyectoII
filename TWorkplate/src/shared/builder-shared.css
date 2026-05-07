@@ -1,48 +1,33 @@
 /* ═══════════════════════════════════════════════════
-   DEVBUILDER — ADMIN SIDE STYLES
-   Rediseño profesional UX/UI + fix scroll panel
+   BUILDER SHARED STYLES — AdminBuilder + UserSide
    ═══════════════════════════════════════════════════ */
 
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&display=swap');
+/* ── Section labels ── */
+.section-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  font-family: var(--font);
+}
+.section-label--sm {
+  font-size: 9px;
+  margin-top: 12px;
+  margin-bottom: 6px;
+}
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-:root {
-  --bg-base:        #0a0f1a;
-  --bg-surface:     #0f172a;
-  --bg-raised:      #1a2540;
-  --bg-hover:       #1e2d4a;
-  --bg-info:        #0c2045;
-  --bg-danger:      #2d0f0f;
-  --bg-success:     #0a2010;
-
-  --border:         #1e293b;
-  --border-md:      #2d3f5a;
-  --border-info:    #1d4ed8;
-  --border-danger:  #7f1d1d;
-
-  --text-primary:   #f1f5f9;
-  --text-secondary: #94a3b8;
-  --text-tertiary:  #475569;
-  --text-info:      #7dd3fc;
-  --text-danger:    #fca5a5;
-  --text-success:   #86efac;
-
-  --accent:         #3b82f6;
-  --accent-hover:   #2563eb;
-  --accent-dim:     #1e3a6e;
-
-  --radius-sm:      6px;
-  --radius-md:      8px;
-  --radius-lg:      12px;
-  --radius-xl:      16px;
-
-  --font:           'Outfit', system-ui, sans-serif;
-  --font-mono:      'JetBrains Mono', 'Fira Code', monospace;
-
-  --topbar-h:       56px;
-  --panel-w-left:   264px;
-  --panel-w-right:  288px;
+/* ── Tag pill ── */
+.tag-pill {
+  display: inline-flex;
+  align-items: center;
+  background: color-mix(in srgb, var(--accent, #3b82f6) 12%, transparent);
+  color: var(--accent, #3b82f6);
+  border: 1px solid color-mix(in srgb, var(--accent, #3b82f6) 30%, transparent);
+  border-radius: 999px;
+  padding: 2px 9px;
+  font-size: 11px;
+  font-family: var(--font);
 }
 
 /* ═══════════════════════════════
@@ -57,7 +42,7 @@
   color: var(--text-primary);
   font-family: var(--font);
   --accent: #3b82f6;
-  overflow: hidden; /* evita scroll en el root */
+  overflow: hidden;
 }
 
 /* ═══════════════════════════════
@@ -69,11 +54,11 @@
   align-items: center;
   gap: 10px;
   padding: 0 20px;
-  height: var(--topbar-h);
-  min-height: var(--topbar-h);
+  height: var(--topbar-h, 56px);
+  min-height: var(--topbar-h, 56px);
   background: var(--bg-surface);
   border-bottom: 1px solid var(--border);
-  flex-shrink: 0; /* nunca se comprime */
+  flex-shrink: 0;
 }
 
 .builder__back-btn {
@@ -97,11 +82,7 @@
   color: var(--text-primary);
 }
 
-.builder__func-icon {
-  font-size: 22px;
-  line-height: 1;
-  flex-shrink: 0;
-}
+.builder__func-icon { font-size: 22px; line-height: 1; flex-shrink: 0; }
 
 .builder__name-input {
   background: transparent;
@@ -118,14 +99,8 @@
   outline: none;
   transition: border-color 0.15s, background 0.15s;
 }
-.builder__name-input:hover {
-  border-color: var(--border);
-  background: var(--bg-raised);
-}
-.builder__name-input:focus {
-  border-color: var(--accent);
-  background: var(--bg-raised);
-}
+.builder__name-input:hover { border-color: var(--border); background: var(--bg-raised); }
+.builder__name-input:focus { border-color: var(--accent); background: var(--bg-raised); }
 
 .builder__cat-select {
   background: var(--bg-raised);
@@ -143,19 +118,14 @@
 .builder__cat-select:focus { border-color: var(--accent); }
 
 .builder__color-swatch {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  cursor: pointer;
+  width: 20px; height: 20px;
+  border-radius: 50%; cursor: pointer;
   border: 2px solid transparent;
   transition: border-color 0.15s, transform 0.1s;
   flex-shrink: 0;
 }
 .builder__color-swatch:hover { transform: scale(1.15); }
-.builder__color-swatch.active {
-  border-color: var(--text-primary);
-  transform: scale(1.1);
-}
+.builder__color-swatch.active { border-color: var(--text-primary); transform: scale(1.1); }
 
 .builder__spacer { flex: 1; }
 
@@ -186,30 +156,18 @@
 
 /* ═══════════════════════════════
    BODY LAYOUT
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   FIX SCROLL: el body debe tener
-   una altura definida para que los
-   paneles hijos puedan hacer scroll.
-   flex: 1 + min-height: 0 es el
-   patrón correcto en flex column.
    ═══════════════════════════════ */
 
 .builder__body {
   display: grid;
-  grid-template-columns: var(--panel-w-left) 1fr var(--panel-w-right);
-  /* height explícita = total - topbar */
-  height: calc(100vh - var(--topbar-h));
-  /* min-height: 0 evita que grid desborde */
+  grid-template-columns: var(--panel-w-left, 264px) 1fr var(--panel-w-right, 288px);
+  height: calc(100vh - var(--topbar-h, 56px));
   min-height: 0;
   overflow: hidden;
 }
 
 /* ═══════════════════════════════
    LEFT PALETTE
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   FIX SCROLL: necesita height: 100%
-   y min-height: 0 para que overflow-y
-   tenga un techo contra qué scrollear.
    ═══════════════════════════════ */
 
 .builder__palette {
@@ -219,8 +177,6 @@
   flex-direction: column;
   height: 100%;
   min-height: 0;
-  /* ← TODO el panel scrollea junto,
-       metadata + widgets en un solo scroll */
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: var(--border-md) transparent;
@@ -250,29 +206,11 @@
   flex-shrink: 0;
 }
 
-/* La lista crece con su contenido —
-   NO tiene height ni overflow propios.
-   El scroll lo maneja .builder__palette */
 .builder__catalog-list {
   display: flex;
   flex-direction: column;
   gap: 1px;
   padding: 4px 8px 24px;
-}
-
-/* ── Section labels ── */
-.section-label {
-  font-size: 10px;
-  font-weight: 600;
-  color: var(--text-tertiary);
-  text-transform: uppercase;
-  letter-spacing: 0.7px;
-  margin-bottom: 8px;
-}
-.section-label--sm {
-  font-size: 9px;
-  margin-top: 12px;
-  margin-bottom: 6px;
 }
 
 /* ── Icons grid ── */
@@ -282,7 +220,6 @@
   gap: 3px;
   margin-bottom: 12px;
 }
-
 .builder__icon-btn {
   font-size: 15px;
   text-align: center;
@@ -428,15 +365,11 @@
   transition: background 0.1s, border-color 0.1s;
   user-select: none;
 }
-.catalog-item:hover {
-  background: var(--bg-raised);
-  border-color: var(--border);
-}
+.catalog-item:hover { background: var(--bg-raised); border-color: var(--border); }
 .catalog-item:active { cursor: grabbing; }
 
 .catalog-item__icon {
-  width: 32px;
-  height: 32px;
+  width: 32px; height: 32px;
   background: var(--bg-raised);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
@@ -462,9 +395,6 @@
 
 /* ═══════════════════════════════
    CENTER CANVAS
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   FIX SCROLL: mismo patrón,
-   height: 100% + overflow-y: auto
    ═══════════════════════════════ */
 
 .builder__canvas-wrap {
@@ -533,8 +463,7 @@
 
 .canvas-widget__key-badge {
   position: absolute;
-  top: 7px;
-  left: 10px;
+  top: 7px; left: 10px;
   font-size: 10px;
   color: var(--text-tertiary);
   font-family: var(--font-mono);
@@ -548,8 +477,7 @@
 
 .canvas-widget__actions {
   position: absolute;
-  top: 7px;
-  right: 8px;
+  top: 7px; right: 8px;
   display: flex;
   gap: 3px;
   opacity: 0;
@@ -583,8 +511,6 @@
 
 /* ═══════════════════════════════
    RIGHT PANEL
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   FIX SCROLL: mismo patrón
    ═══════════════════════════════ */
 
 .builder__right {
@@ -600,7 +526,7 @@
 .right-tabs {
   display: flex;
   border-bottom: 1px solid var(--border);
-  flex-shrink: 0; /* nunca se comprime */
+  flex-shrink: 0;
 }
 
 .right-tab {
@@ -626,7 +552,6 @@
 }
 
 .right-panel-body {
-  /* ← SCROLL REAL del panel de props */
   flex: 1;
   min-height: 0;
   overflow-y: auto;
@@ -637,7 +562,6 @@
 
 /* ── Props panel ── */
 .props-panel { display: flex; flex-direction: column; gap: 0; }
-
 .props-panel__header {
   display: flex;
   align-items: center;
@@ -646,10 +570,8 @@
   border-bottom: 1px solid var(--border);
   margin-bottom: 16px;
 }
-
 .props-panel__icon {
-  width: 32px;
-  height: 32px;
+  width: 32px; height: 32px;
   background: var(--bg-raised);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
@@ -661,13 +583,11 @@
   color: var(--text-secondary);
   flex-shrink: 0;
 }
-
 .props-panel__label {
   font-size: 14px;
   font-weight: 500;
   color: var(--text-primary);
 }
-
 .props-panel__empty {
   display: flex;
   flex-direction: column;
@@ -687,7 +607,6 @@
   gap: 5px;
   margin-bottom: 14px;
 }
-
 .pf__label {
   font-size: 11px;
   font-weight: 500;
@@ -835,58 +754,6 @@ textarea.ctrl { height: auto; padding: 8px 10px; resize: none; line-height: 1.5;
 }
 
 /* ═══════════════════════════════
-   ADMIN PANEL (list view)
-   ═══════════════════════════════ */
-
-.admin-panel { padding: 32px; overflow-y: auto; flex: 1; min-height: 0; }
-.admin-panel__header { margin-bottom: 24px; }
-.admin-panel__eyebrow {
-  font-size: 11px; color: var(--text-tertiary);
-  text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 6px;
-}
-.admin-panel__title {
-  font-size: 24px; font-weight: 600; color: var(--text-primary);
-  margin-bottom: 4px; letter-spacing: -0.3px;
-}
-.admin-panel__subtitle { font-size: 14px; color: var(--text-secondary); line-height: 1.5; }
-
-.admin-panel__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 14px;
-}
-
-.admin-func-card {
-  background: var(--bg-surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 16px;
-  border-top: 3px solid var(--accent);
-  transition: border-color 0.15s, box-shadow 0.15s;
-}
-.admin-func-card:hover {
-  border-color: var(--border-md);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-}
-.admin-func-card__header { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
-.admin-func-card__icon { font-size: 24px; }
-.admin-func-card__name { font-size: 14px; font-weight: 500; color: var(--text-primary); }
-.admin-func-card__category { font-size: 10px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
-.admin-func-card__desc { font-size: 12px; color: var(--text-secondary); margin-bottom: 10px; line-height: 1.5; }
-.admin-func-card__tags { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; }
-.admin-func-card__count { font-size: 11px; color: var(--text-tertiary); }
-
-/* ── Tag pill ── */
-.tag-pill {
-  display: inline-flex; align-items: center;
-  background: color-mix(in srgb, var(--accent, #3b82f6) 12%, transparent);
-  color: var(--accent, #3b82f6);
-  border: 1px solid color-mix(in srgb, var(--accent, #3b82f6) 30%, transparent);
-  border-radius: 999px;
-  padding: 2px 9px; font-size: 11px;
-}
-
-/* ═══════════════════════════════
    WIDGET PREVIEWS
    ═══════════════════════════════ */
 
@@ -971,3 +838,45 @@ textarea.ctrl { height: auto; padding: 8px 10px; resize: none; line-height: 1.5;
 .wp-chart-labels { display: flex; gap: 5px; margin-top: 4px; }
 .wp-chart-label { flex: 1; font-size: 9px; color: var(--text-tertiary); text-align: center; }
 .wp-default { font-size: 12px; color: var(--text-tertiary); font-family: var(--font-mono); }
+
+/* ═══════════════════════════════
+   ADMIN PANEL (list view)
+   ═══════════════════════════════ */
+
+.admin-panel { padding: 32px; overflow-y: auto; flex: 1; min-height: 0; }
+.admin-panel__header { margin-bottom: 24px; }
+.admin-panel__eyebrow {
+  font-size: 11px; color: var(--text-tertiary);
+  text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 6px;
+}
+.admin-panel__title {
+  font-size: 24px; font-weight: 600; color: var(--text-primary);
+  margin-bottom: 4px; letter-spacing: -0.3px;
+}
+.admin-panel__subtitle { font-size: 14px; color: var(--text-secondary); line-height: 1.5; }
+
+.admin-panel__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 14px;
+}
+
+.admin-func-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  border-top: 3px solid var(--accent);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.admin-func-card:hover {
+  border-color: var(--border-md);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+.admin-func-card__header { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.admin-func-card__icon { font-size: 24px; }
+.admin-func-card__name { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+.admin-func-card__category { font-size: 10px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+.admin-func-card__desc { font-size: 12px; color: var(--text-secondary); margin-bottom: 10px; line-height: 1.5; }
+.admin-func-card__tags { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; }
+.admin-func-card__count { font-size: 11px; color: var(--text-tertiary); }

@@ -5,36 +5,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap');
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-:root {
-  --bg-base:        #0a0f1a;
-  --bg-surface:     #0f172a;
-  --bg-raised:      #1a2540;
-  --bg-hover:       #1e2d4a;
-  --bg-info:        #0c2045;
-  --bg-danger:      #2d0f0f;
-
-  --border:         #1e293b;
-  --border-md:      #2d3f5a;
-  --border-danger:  #7f1d1d;
-
-  --text-primary:   #f1f5f9;
-  --text-secondary: #94a3b8;
-  --text-tertiary:  #475569;
-  --text-danger:    #fca5a5;
-
-  --accent:         #3b82f6;
-  --accent-hover:   #2563eb;
-  --accent-dim:     #1e3a6e;
-
-  --radius-sm:      6px;
-  --radius-md:      8px;
-  --radius-lg:      12px;
-  --radius-xl:      16px;
-
-  --font:           'Outfit', system-ui, sans-serif;
-}
+@import '../../shared/tokens.css';
 
 /* ═══════════════════════════════
    SHELL — layout de dos columnas
